@@ -2,12 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Pizza;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pizza>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pizza>
  */
 class PizzaFactory extends Factory
 {
@@ -19,12 +17,12 @@ class PizzaFactory extends Factory
     public function definition(): array
     {
         $toppingChoices = [
-            'Extra Chesse',
+            'Extra Cheese',
             'Black Olives',
             'Pepperoni',
             'Sausage',
             'Anchovies',
-            'Jalapenios',
+            'Jalapenos',
             'Onion',
             'Chicken',
             'Ground Beef',
@@ -33,20 +31,19 @@ class PizzaFactory extends Factory
 
         $toppings = [];
 
-        for($i = 1; $i <= rand(1, 4); $i++){
-            $toppings[] = Arr::random($toppingChoices);
+        for($i = 1; $i <= rand(1, 4); $i++) {
+            $toppings[] = $toppingChoices[rand(0, 9)];
         }
 
-        $toppings  = array_unique($toppings);
-
+        $toppings = array_unique($toppings);
 
         return [
-            'id' => rand(11111, 99999),
+            'id' => rand(1111111, 9999999),
             'user_id' => rand(1, 10),
-            'size' => Arr::random(['Small', 'Medium', 'Large', 'Extra-Large']),
-            'crust' => Arr::random(['Normal','Thin','Garlic']),
+            'size' => ['Small', 'Medium', 'Large', 'Extra-Large'][rand(0, 3)],
+            'crust' => ['Regular', 'Thin', 'Garlic'][rand(0, 2)],
+            'status' => ['Ordered', 'Prepping', 'Baking', 'Checking', 'Ready'][rand(0, 4)],
             'toppings' => $toppings,
-            'status' => Arr::random(['Ordered', 'Prepping', 'Baking', 'Ready']),
         ];
     }
 }
